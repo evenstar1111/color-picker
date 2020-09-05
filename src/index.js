@@ -1,17 +1,76 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import Navigation from './Components/navigation';
+import LoginForm from './Components/login-dialog';
+import SideBar from './Components/sidebar';
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      left: false,
+      isLoginOpen: false,
+      color: {
+        background: {
+          rgb: {
+            r: 51,
+            g: 51,
+            b: 51,
+            a: 1,
+          },  
+        },
+        foreground: {
+          rgb: {
+            r: 51,
+            g: 51,
+            b: 51,
+            a: 1,
+          }
+        }
+      }      
+    };
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+  }
+
+  toggleDrawer(open) {
+    return (
+      (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return
+        }
+
+        this.setState({left: open});
+      }
+    )
+  }
+
+  handleCloseLoginDialog() {
+    this.setState({isLoginOpen: false})
+  }
+
+  handleOpenLoginDialog() {
+    this.setState({isLoginOpen: true})
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <Navigation
+          toggleDrawer={this.toggleDrawer}
+          handleOpenLoginDialog={() => this.handleOpenLoginDialog()} />
+        <SideBar
+          anchor='left'
+          ifOpen={this.state.left}
+          toggleDrawer={this.toggleDrawer} />
+        <LoginForm
+          ifOpen={this.state.isLoginOpen}
+          handleClose={() => this.handleCloseLoginDialog()} />      
+      </div>
+    )
+  }
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  <App />, document.getElementById('root')
+)

@@ -1,26 +1,76 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from 'react-dom';
+import './index.css';
+import Navigation from './Components/navigation';
+import LoginForm from './Components/login-dialog';
+import SideBar from './Components/sidebar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      left: false,
+      isLoginOpen: false,
+      color: {
+        background: {
+          rgb: {
+            r: 51,
+            g: 51,
+            b: 51,
+            a: 1,
+          },  
+        },
+        foreground: {
+          rgb: {
+            r: 51,
+            g: 51,
+            b: 51,
+            a: 1,
+          }
+        }
+      }      
+    };
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+  }
+
+  toggleDrawer(open) {
+    return (
+      (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return
+        }
+
+        this.setState({left: open});
+      }
+    )
+  }
+
+  handleCloseLoginDialog() {
+    this.setState({isLoginOpen: false})
+  }
+
+  handleOpenLoginDialog() {
+    this.setState({isLoginOpen: true})
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <Navigation
+          toggleDrawer={this.toggleDrawer}
+          handleOpenLoginDialog={() => this.handleOpenLoginDialog()} />
+        <SideBar
+          anchor='left'
+          ifOpen={this.state.left}
+          toggleDrawer={this.toggleDrawer} />
+        <LoginForm
+          ifOpen={this.state.isLoginOpen}
+          handleClose={() => this.handleCloseLoginDialog()} />      
+      </div>
+    )
+  }
 }
 
-export default App;
+ReactDOM.render(
+  <App />, document.getElementById('root')
+)
