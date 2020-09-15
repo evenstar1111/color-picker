@@ -68,7 +68,7 @@ export default function LoginForm(props) {
                   variant='body1'
                >
                   Need an account ? &nbsp; 
-                  <Link href='#'>
+                  <Link href='#' onClick={handleClose}>
                     click here
                   </Link>
                </Typography>

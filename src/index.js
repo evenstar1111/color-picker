@@ -1,76 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Navigation from './Components/navigation';
-import LoginForm from './Components/login-dialog';
-import SideBar from './Components/sidebar';
+import App from './App';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      left: false,
-      isLoginOpen: false,
-      color: {
-        background: {
-          rgb: {
-            r: 51,
-            g: 51,
-            b: 51,
-            a: 1,
-          },  
-        },
-        foreground: {
-          rgb: {
-            r: 51,
-            g: 51,
-            b: 51,
-            a: 1,
-          }
-        }
-      }      
-    };
-    this.toggleDrawer = this.toggleDrawer.bind(this);
-  }
-
-  toggleDrawer(open) {
-    return (
-      (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-          return
-        }
-
-        this.setState({left: open});
-      }
-    )
-  }
-
-  handleCloseLoginDialog() {
-    this.setState({isLoginOpen: false})
-  }
-
-  handleOpenLoginDialog() {
-    this.setState({isLoginOpen: true})
-  }
-
-  render() {
-    return (
-      <div className="app">
-        <Navigation
-          toggleDrawer={this.toggleDrawer}
-          handleOpenLoginDialog={() => this.handleOpenLoginDialog()} />
-        <SideBar
-          anchor='left'
-          ifOpen={this.state.left}
-          toggleDrawer={this.toggleDrawer} />
-        <LoginForm
-          ifOpen={this.state.isLoginOpen}
-          handleClose={() => this.handleCloseLoginDialog()} />      
-      </div>
-    )
-  }
-}
 
 ReactDOM.render(
-  <App />, document.getElementById('root')
+  <App />,
+  document.getElementById('root')
 )

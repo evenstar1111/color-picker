@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
+import Color from '../../context/context';
 
 const useStyles = makeStyles(theme => ({
    coloredCard: {
@@ -23,10 +24,19 @@ const useStyles = makeStyles(theme => ({
 
 
 const ColorShower = props => {
+   const { backColor, foreColor } = useContext(Color);
+
    const classes = useStyles();
 
    return (
-      <Card className={classes.coloredCard}>
+      <Card style={{
+         backgroundColor: `
+         rgba(${backColor.r}, 
+               ${backColor.g}, 
+               ${backColor.b}, 
+               ${backColor.a})`
+         }} className={classes.coloredCard}
+      >
          <Box
             className={classes.box} 
             px='10px' 
@@ -34,7 +44,14 @@ const ColorShower = props => {
             justifyContent='center' 
             alignItems='center'
          >
-            <Typography className={classes.headingType} variant='h2' component='p'>
+            <Typography style={{
+               color: `
+                  rgba(${foreColor.r}, 
+                        ${foreColor.g}, 
+                        ${foreColor.b}, 
+                        ${foreColor.a})`,
+               }} className={classes.headingType} variant='h2' component='p'
+            >
                COLORED TEXT
             </Typography>
          </Box>

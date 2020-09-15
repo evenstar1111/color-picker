@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import PaletteCard from './palette';
-import ColorTool from './popupColorTool';
+import ChromePicker from 'react-color';
+import PopperColorTool from '../utils/popper';
 
 
 const PaletteCreator = () => {
    const [ anchorEl, setAnchorEl ] = useState(null);
+   const [ color, setColor ] = useState({ r: 51, g: 51, b: 51, a: 1});
 
    const open = Boolean(anchorEl);
+
+   function handleColorChange(color) {
+      setColor(color.rgb);
+   }
 
    function handleClickOnOpen(event) {
       setAnchorEl(event.currentTarget);
@@ -24,9 +30,17 @@ const PaletteCreator = () => {
       >
          <Grid container>
             <Grid item xs={12} md={9}>
-               <PaletteCard handleClick={handleClickOnOpen} />
+               <PaletteCard color={color} handleClick={handleClickOnOpen} />
             </Grid>
-            <ColorTool open={open} anchorEl={anchorEl} handleOnClose={handleClickOnClose} />
+            <PopperColorTool 
+               open={open} 
+               anchorEl={anchorEl} 
+               handleOnClose={handleClickOnClose}
+            >
+               <ChromePicker
+                  color={color}
+                  onChange={handleColorChange} />
+            </PopperColorTool>
          </Grid>
       </Box>
    )

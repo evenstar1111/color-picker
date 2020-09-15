@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 import Navigation from './Components/navigation';
 import LoginForm from './Components/login-dialog';
@@ -10,25 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       left: false,
-      isLoginOpen: false,
-      color: {
-        background: {
-          rgb: {
-            r: 51,
-            g: 51,
-            b: 51,
-            a: 1,
-          },  
-        },
-        foreground: {
-          rgb: {
-            r: 51,
-            g: 51,
-            b: 51,
-            a: 1,
-          }
-        }
-      }      
+      isLoginOpen: false,     
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
   }
@@ -71,6 +52,5 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <App />, document.getElementById('root')
-)
+
+export default App;
