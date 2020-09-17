@@ -13,6 +13,7 @@ import { SketchPicker } from 'react-color';
 import { useContext } from 'react';
 import Color from '../../context/context';
 import { TwitterPicker } from 'react-color';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 
 const useStyles = makeStyles({
@@ -29,6 +30,13 @@ const useStyles = makeStyles({
    titleType: {
       marginLeft: 10,
       fontWeight: 700,
+   },
+   copiedMsg: {
+      padding: '3px 8px 5px 8px',
+      backgroundColor: '#ccc',
+      marginLeft: 10,
+      borderRadius: 3,
+      transition: 'all .3s ease-in-out',
    },
    colorBox: {
       minWidth: 30,
@@ -70,6 +78,25 @@ const TitleAndColorBoxContainer = (props) => {
 
 const CardSections = props => {
    const classes = useStyles();
+
+   const [ isCopied, setCopied ] = useState(false);
+
+   function toggleCopyStatus() {
+      setCopied(true);
+      setTimeout(() => {
+         setCopied(false);
+      }, 1600);
+   }
+
+   const copiedMssg = () => {
+      if (isCopied) {
+         return (
+            <span className={classes.copiedMsg}>
+               copied
+            </span>
+         )
+      }
+   }
 
    function handleClickOnColorSquare(event) {
       props.handleOpen(event);
@@ -116,7 +143,11 @@ const CardSections = props => {
                </Box>
             </Box>
             <Box width='100%' p='5px'>
-               <input className={classes.colorCodeInput} value={`${props.colorCode}`} readOnly />
+               <CopyToClipboard text={props.colorCode}
+                 onCopy={() => toggleCopyStatus()}>
+                  <input className={classes.colorCodeInput} value={`${props.colorCode}`} readOnly />
+               </CopyToClipboard>
+               {copiedMssg()}
             </Box>
          </Box>
       </React.Fragment>
