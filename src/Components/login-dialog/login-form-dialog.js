@@ -19,7 +19,7 @@ const useStyles = makeStyles({
    }
 })
 
-export default function LoginForm(props) {
+function LoginForm(props) {
    const classes = useStyles();
 
    const { handleClose } = props;
@@ -80,3 +80,5 @@ export default function LoginForm(props) {
       </div>
    )
 }
+
+export default LoginForm;
