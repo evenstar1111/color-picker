@@ -110,7 +110,7 @@ const CardSections = props => {
                >
                   <Box>
                      <IconButton onClick={props.saveColor}>
-                        <TurnedInNotIcon />
+                        {props.whatIcon}
                      </IconButton>
                   </Box>
                </Box>
@@ -134,7 +134,24 @@ const ColorCodeContainer = props => {
       updateBackColor, 
       updateForeColor} = useContext(Color);
 
-   const [ colorsArray, setColors ] = useState(twitterColors);
+   const [ colorsArrayBack, setColorsArrayBack ] = useState(twitterColors);
+   const [ colorsArrayFore, setColorsArrayFore ] = useState([]);
+   
+   function updateColorsArrayBack() {
+      const arr = colorsArrayBack.slice();
+      if(arr.indexOf(backColorHex) < 0) {
+         arr.push(backColorHex);
+      }
+      setColorsArrayBack(arr);
+   }
+
+   function updateColorsArrayFore() {
+      const arr = colorsArrayFore.slice();
+      if(arr.indexOf(foreColorHex) < 0) {
+         arr.push(foreColorHex);
+      }
+      setColorsArrayFore(arr);
+   }
       
    const [ openBack, setOpenBack ] = useState(false);
    const [ openFore, setOpenFore ] = useState(false);
