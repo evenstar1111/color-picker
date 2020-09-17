@@ -30,7 +30,7 @@ const PaletteCreator = () => {
       >
          <Grid container>
             <Grid item xs={12} md={9}>
-               <PaletteCard color={color} handleClick={handleClickOnOpen} />
+               <PaletteCard /*color={color}*/ handleClick={handleClickOnOpen} />
             </Grid>
             <PopperColorTool 
                open={open} 

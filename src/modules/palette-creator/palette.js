@@ -12,22 +12,25 @@ const useStyles = makeStyles({
       height: 90,
       // border: '1px solid #eee'
    },
-})
+});
+
+
+const colorsArray = ['#4D4D4D', '#999999', '#0055FF', '#F44E3B', '#FE9200',];
 
 const ColorSquare = props => {
    const classes = useStyles();
    const b = props.color;
 
    return (
-      <div style={{backgroundColor: `rgba(${b.r}, ${b.g}, ${b.b}, ${b.a})`}} onClick={props.handleClick} className={classes.colorSquare}></div>
+      <div style={{backgroundColor: b, /*`rgba(${b.r}, ${b.g}, ${b.b}, ${b.a})`*/}} onClick={props.handleClick} className={classes.colorSquare}></div>
    )
 }
 
 
 const PaletteCard = props => {
-   const Squares = Array(5).fill(null).map((member, index) => {
+   const Squares = colorsArray.map((color) => {
       return (
-         <ColorSquare color={props.color} handleClick={props.handleClick} key={`square${index}`} />
+         <ColorSquare color={color} handleClick={props.handleClick} key={color} />
       );
    });
 
@@ -49,6 +52,8 @@ const PaletteCard = props => {
       </Box>
    )
 };
+
+
 
 
 export default PaletteCard;
