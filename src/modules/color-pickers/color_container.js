@@ -45,6 +45,32 @@ const useStyles = makeStyles({
    }
 });
 
+
+const SaveButton = ({newColor, colorsArrayBack, handleClickOnSaveIcon}) => {
+   function returnsIcon() {
+      if (colorsArrayBack.indexOf(newColor) < 0) {
+         return (
+            <TurnedInNotIcon />
+         );
+      }
+      
+      if (colorsArrayBack.indexOf(newColor) >= 0) {
+         return (
+            <TurnedInIcon />
+         );
+      }
+   };
+
+   return (
+      <IconButton onClick={handleClickOnSaveIcon}>         
+         {returnsIcon()}      
+      </IconButton>
+   );
+
+};
+
+
+
 const TitleAndColorBoxContainer = (props) => {
    const classes = useStyles();
 
@@ -109,9 +135,13 @@ const CardSections = props => {
                   alignItems='center'
                >
                   <Box>
-                     <IconButton onClick={props.saveColor}>
-                        <TurnedInNotIcon />
+                     <IconButton onClick={props.handleClickOnSaveIcon}>
+                        {props.children}
                      </IconButton>
+                     {/* <SaveButton
+                        newColor={props.newColor}
+                        colorsArrayBack={props.colorsArrayBack}
+                        handleClickOnSaveIcon={props.handleClickOnSaveIcon} /> */}
                   </Box>
                </Box>
             </Box>
@@ -133,8 +163,34 @@ const ColorCodeContainer = props => {
       foreColorHex,
       updateBackColor, 
       updateForeColor} = useContext(Color);
+   
+   const [ colorsArrayBack, setColorsArrayBack ] = useState([]);
+   const [ colorsArrayFore, setColorsArrayFore ] = useState([]);
+   
+   function updateColorsArrayBack() {
+      const arr = colorsArrayBack.slice();
+      if(arr.indexOf(backColorHex) < 0) {
+         arr.push(backColorHex);
+      }
+      setColorsArrayBack(arr);
+   }
 
-   const [ colorsArray, setColors ] = useState(twitterColors);
+   function updateColorsArrayFore() {
+      const arr = colorsArrayFore.slice();
+      if(arr.indexOf(foreColorHex) < 0) {
+         arr.push(foreColorHex);
+      }
+      setColorsArrayFore(arr);
+   }
+
+   const returnTurnInIcon = (newColor, arr) => {
+      if (arr.indexOf(newColor) < 0) {
+         return (<TurnedInNotIcon />);
+      }
+      if (arr.indexOf(newColor) >= 0) {
+         return (<TurnedInIcon />);
+      }
+   };
       
    const [ openBack, setOpenBack ] = useState(false);
    const [ openFore, setOpenFore ] = useState(false);
@@ -158,8 +214,6 @@ const ColorCodeContainer = props => {
          setOpenFore(false);
       }
    }
-  
-   
 
    return (
       <div>
@@ -170,12 +224,16 @@ const ColorCodeContainer = props => {
                   title='background'
                   elId='background'
                   colorCode={backColorHex}
-                  handleOpen={openPickerBack} />
+                  handleOpen={openPickerBack}
+                  children={returnTurnInIcon(backColorHex, colorsArrayBack)}
+                  handleClickOnSaveIcon={updateColorsArrayBack} />
                <CardSections 
                   title='foreground'
                   elId='foreground'
                   colorCode={foreColorHex}
-                  handleOpen={openPickerFore} />
+                  handleOpen={openPickerFore}
+                  children={returnTurnInIcon(foreColorHex, colorsArrayFore)}
+                  handleClickOnSaveIcon={updateColorsArrayFore} />
             </div>
             <PopupColorTool
                open={openBack}
@@ -199,17 +257,35 @@ const ColorCodeContainer = props => {
             </PopupColorTool>
          </Paper>
          <Box mt='20px'>
-         <TwitterPicker 
-            width='100%' 
-            color={backColor} 
-            colors={twitterColors}
-            triangle='hide'
-            onChange={updateBackColor} />
-      </Box>
+            <Typography
+                component='p'
+                variant='h5'
+                children={'saved backgrounds'}
+            />
+            <TwitterPicker 
+               width='100%' 
+               color={backColor} 
+               colors={colorsArrayBack}
+               triangle='hide'
+               onChange={updateBackColor} />
+         </Box>
+         <Box mt='20px'>
+            <Typography
+                component='p'
+                variant='h5'
+                children={'saved foregrounds'}
+            />
+            <TwitterPicker 
+               width='100%' 
+               color={foreColor} 
+               colors={colorsArrayFore}
+               triangle='hide'
+               onChange={updateForeColor} />
+         </Box>
       </div>
    )
 }
 
-const twitterColors = ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#66dcEF',];
+const twitterColors = [];
 
 export default ColorCodeContainer;
