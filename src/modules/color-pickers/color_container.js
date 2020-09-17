@@ -136,7 +136,7 @@ const CardSections = props => {
                >
                   <Box>
                      <IconButton onClick={props.handleClickOnSaveIcon}>
-                        {props.children}
+                        {props.whatIcon}
                      </IconButton>
                      {/* <SaveButton
                         newColor={props.newColor}
@@ -225,14 +225,14 @@ const ColorCodeContainer = props => {
                   elId='background'
                   colorCode={backColorHex}
                   handleOpen={openPickerBack}
-                  children={returnTurnInIcon(backColorHex, colorsArrayBack)}
+                  whatIcon={returnTurnInIcon(backColorHex, colorsArrayBack)}
                   handleClickOnSaveIcon={updateColorsArrayBack} />
                <CardSections 
                   title='foreground'
                   elId='foreground'
                   colorCode={foreColorHex}
                   handleOpen={openPickerFore}
-                  children={returnTurnInIcon(foreColorHex, colorsArrayFore)}
+                  whatIcon={returnTurnInIcon(foreColorHex, colorsArrayFore)}
                   handleClickOnSaveIcon={updateColorsArrayFore} />
             </div>
             <PopupColorTool
