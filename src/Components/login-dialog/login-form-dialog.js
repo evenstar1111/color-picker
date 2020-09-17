@@ -19,7 +19,7 @@ const useStyles = makeStyles({
    }
 })
 
-export default function LoginForm(props) {
+function LoginForm(props) {
    const classes = useStyles();
 
    const { handleClose } = props;
@@ -40,24 +40,27 @@ export default function LoginForm(props) {
             >
                Login
             </DialogTitle>
-            <DialogContent className={classes.dialogWidth}>               
-               <TextField
-                  autoFocus
-                  className={classes.bottomMargin}
-                  variant='outlined'
-                  margin='dense'
-                  id='name'
-                  label='email address'
-                  type='email'
-                  fullWidth />
-               <TextField                  
-                  variant='outlined'
-                  className={classes.bottomMargin}
-                  margin='dense'
-                  id='password'
-                  label='password'
-                  type='password'
-                  fullWidth />
+            <DialogContent className={classes.dialogWidth}> 
+               <form>              
+                  <TextField
+                     autoFocus
+                     className={classes.bottomMargin}
+                     variant='outlined'
+                     margin='dense'
+                     id='name'
+                     label='email address'
+                     type='email'
+                     fullWidth />
+                  <TextField                  
+                     variant='outlined'
+                     className={classes.bottomMargin}
+                     margin='dense'
+                     id='password'
+                     label='password'
+                     type='password'
+                     fullWidth
+                     autoComplete='true' />
+               </form>
                <DialogActions className={classes.bottomMargin}>
                   <Button onClick={handleClose} variant='contained' color='secondary'>cancel</Button>
                   <Button onClick={handleClose} variant='contained' color='primary'>login</Button>
@@ -77,3 +80,5 @@ export default function LoginForm(props) {
       </div>
    )
 }
+
+export default LoginForm;
