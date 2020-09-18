@@ -15,4 +15,4 @@ and also save those colors temporarily.
 4. [react-copy-to-clipboard](https://www.npmjs.com/package/react-copy-to-clipboard)
 <br />
 
-The app is deployed to **Heroku** with [this community build pack](https://github.com/mars/create-react-app-buildpack).
+The app is deployed on **Heroku** with [this community build pack](https://github.com/mars/create-react-app-buildpack).
