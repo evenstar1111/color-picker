@@ -1,7 +1,5 @@
 ## Color Picker
 
-<br />
-
 This is a simple web app, created with `React Js`. This app is created using [Create React App](https://github.com/facebook/create-react-app).
 
 <br />
