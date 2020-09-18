@@ -13,3 +13,7 @@ and also save those colors temporarily.
 2. [React Color](https://casesandberg.github.io/react-color/)
 3. [clsx](https://www.npmjs.com/package/clsx)
 4. [react-copy-to-clipboard](https://www.npmjs.com/package/react-copy-to-clipboard)
+<br />
+<br />
+
+The app is deployed to **Heroku** with [this community build pack](https://github.com/mars/create-react-app-buildpack).
